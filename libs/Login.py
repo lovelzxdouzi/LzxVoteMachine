@@ -15,6 +15,7 @@ from selenium.common.exceptions import *
 
 from libs.Compare import *
 from selenium.webdriver import ActionChains
+from libs.path_url_lib import *
 from io import BytesIO
 import time
 import re
@@ -25,13 +26,16 @@ TEMPLATES_FOLDER = "./image/"
 
 class Login(object):
 
-    def __init__(self,driver, username, password):
+    def __init__(self, driver, username, password):
         self.url = "https://passport.weibo.cn/signin/login"  # 移动版微博登录页
         self.driver = driver  # 获得 selenium driver
-        self.driver.set_window_size(100, 455)
         self.wait = WebDriverWait(self.driver, 10, 0.5)  # 等待时间
         self.username = username
         self.password = password
+
+    def to_page(self, url):
+        self.driver.get(url)
+        time.sleep(3)
 
     def open(self):
         """
@@ -39,6 +43,7 @@ class Login(object):
         :return:
         """
         # 进入移动端微博登录页面
+        self.driver.set_window_size(100, 455)
         self.driver.get(self.url)
         username = self.wait.until(EC.presence_of_element_located((By.ID, "loginName")))
         password = self.wait.until(
@@ -74,9 +79,7 @@ class Login(object):
 
         # 获得图片准确位置
         location = img.location
-        print('location:', location)
         size = img.size
-        print('size:', size)
         top, bottom, left, right = (
             location["y"],
             location["y"] + size["height"],
@@ -188,6 +191,19 @@ class Login(object):
                 )
         time.sleep(2)
 
+    def loginCheck(self):
+        # 登录检查，是否真的登录了账号:
+        self.to_page(mainst_url)
+        try:
+            print(u'登录检查...')
+            self.driver.find_elements_by_xpath(check_path)
+        except NoSuchElementException as e:
+            print(u'登录异常，重新登录中...')
+            self.run()
+        except WebDriverException as w:
+            print(u'登录异常，重新登录中...')
+            self.run()
+
     def run(self):
         """
         主函数
@@ -197,6 +213,7 @@ class Login(object):
         image = self.get_image()
         numbers = self.detect_image(image)
         self.move(numbers)
-        time.sleep(15)
+        time.sleep(10)
+        self.loginCheck()
 
         return self.driver

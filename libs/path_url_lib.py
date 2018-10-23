@@ -7,6 +7,9 @@ xkl_url = 'https://weibo.com/p/1008085db32612886f0e6498427553470911d9/super_inde
 
 vote_url = 'http://t.cn/EhpZy3L'
 
+# 登录检查所需 xpath
+check_path = '//*[@id="pl_common_top"]/div/div/div[3]/div[2]/div[2]/a/em'
+
 # 自动签到 所需 xpath
 focus_btn_path = '//*[@id="Pl_Core_StuffHeader__1"]/div/div[2]/div/div[3]/div/div[2]'
 sign_btn_poth = '//*[@id="Pl_Core_StuffHeader__1"]/div/div[2]/div/div[3]/div/div[3]/a'

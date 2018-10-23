@@ -49,9 +49,9 @@ if __name__ == '__main__':
 
             driver = putSeed(driver).run()
             print('操作进度：播种完成')
-            result = goCenter(driver).sendScore()
+            driver = goCenter(driver).sendScore()
 
-            result.close()
+            driver.close()
         except TimeoutException as t:
             print(u'出现超时现象。挖土豆机已经终止')
             driver.close()

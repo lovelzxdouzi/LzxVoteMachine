@@ -6,7 +6,7 @@ from libs.path_url_lib import *
 class doComments(object):
     def __init__(self, driver):
         self.driver = driver
-        self.wait = WebDriverWait(self.driver, 10, 0.5)
+        self.wait = WebDriverWait(self.driver, 30, 0.5)
         self.driver.set_window_size(640, 950)
 
     def to_page(self):
@@ -33,11 +33,11 @@ class doComments(object):
 
             # 若 大于19 则视为已经满了，则向下遍历 wrapper，找到一个满足条件的
             while count > 19:
+                info_num = self.wait.until(EC.presence_of_element_located((By.XPATH, count_path.format(cursor))))
+                self.driver.execute_script("arguments[0].scrollIntoView();", info_num)
                 cursor += 1
-                count = self.wait.until(EC.presence_of_element_located((By.XPATH, count_path.format(cursor))))
-                self.driver.execute_script("arguments[0].scrollIntoView();", count)
                 time.sleep(1)
-                count = eval(count.text)
+                count = eval(info_num.text)
 
             # 检查 wrapper 的评论数量，小于等于19 则 给评论
 
@@ -47,9 +47,11 @@ class doComments(object):
             try:
                 comment_btn.click()
             except WebDriverException as e:
+                last_btn = self.wait.until(EC.presence_of_element_located((By.XPATH, comment_btn_path.format(cursor-1))))
+                self.driver.execute_script("arguments[0].scrollIntoView();", last_btn)
+                time.sleep(2)
+                comment_btn.click()
                 print(e)
-                count -= 1
-                continue
 
             time.sleep(5)
 
@@ -69,13 +71,16 @@ class doComments(object):
             # 等待 '发送完成' 提示消失
             print('第{}次评论完成 ...'.format(cursor))
             time.sleep(2)
+
+            # 再次点击 评论数字 收起评论条目
             try:
                 comment_btn.click()
             except WebDriverException as e:
                 print(e)
-                cursor += 1
+                self.driver.execute_script("arguments[0].scrollIntoView();", comment_btn)
                 continue
 
+            # 这个 scroll 就是  ‘过’ 当前这个帖子块
             self.driver.execute_script("arguments[0].scrollIntoView();", comment_btn)
             time.sleep(5 + random.randint(0, 10))
 

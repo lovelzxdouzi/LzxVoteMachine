@@ -12,10 +12,9 @@ class AutoSign(object):
         self.driver.get(url)
 
     def doQuery(self):
+        title = self.wait.until(EC.presence_of_element_located((By.XPATH, title_path)))
         focus_btn = self.wait.until(EC.presence_of_element_located((By.XPATH, focus_btn_path)))
         info = focus_btn.text
-
-        print(info)
 
         time.sleep(5)
         # 如果是已关注，则点击右边的签到按钮:
@@ -24,7 +23,7 @@ class AutoSign(object):
 
             if sign_btn.text != '已关注':
                 sign_btn.click()
-                print('clicked sign btn....')
+                print('[{}] 签到完成....'.format(title.text))
             elif sign_btn.text == '已签到':
                 pass
 
@@ -45,7 +44,7 @@ class AutoSign(object):
                 self.driver.refresh()
                 sign_btn = self.wait.until(EC.presence_of_element_located((By.XPATH, sign_btn_poth)))
                 sign_btn.click()
-            print('clicked sign btn....')
+                print('[{}] 签到完成....'.format(title.text))
             time.sleep(3)
 
     def run(self):

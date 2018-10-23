@@ -56,7 +56,7 @@ class Login(object):
         username.send_keys(self.username)
         password.send_keys(self.password)
         button.click()
-        time.sleep(5)
+        time.sleep(3)
 
     def get_position(self):
         """
@@ -69,6 +69,18 @@ class Login(object):
             img = self.wait.until(
                 EC.presence_of_element_located((By.CLASS_NAME, "patt-holder-body"))
             )
+
+            # 获得图片准确位置
+            location = img.location
+            size = img.size
+            top, bottom, left, right = (
+                location["y"],
+                location["y"] + size["height"],
+                location["x"],
+                location["x"] + size["width"],
+            )
+
+            return top, bottom, left, right
         except TimeoutException as e:
             print(e.args)
             self.open()
@@ -77,17 +89,6 @@ class Login(object):
             self.open()
         time.sleep(2)
 
-        # 获得图片准确位置
-        location = img.location
-        size = img.size
-        top, bottom, left, right = (
-            location["y"],
-            location["y"] + size["height"],
-            location["x"],
-            location["x"] + size["width"],
-        )
-
-        return top, bottom, left, right
 
     def get_image(self, name="captcha.png"):
         """

@@ -22,7 +22,7 @@ class doComments(object):
         time.sleep(2)
 
         # 进入 帖子tab
-
+        rec = 1
         for cursor in range(1, 9):
             # 每次重新进入到 帖子tab 页面，都选取第一个帖子观察
             info_num = self.wait.until(EC.presence_of_element_located((By.XPATH, count_path.format(cursor)))).text
@@ -41,7 +41,7 @@ class doComments(object):
 
             # 检查 wrapper 的评论数量，小于等于19 则 给评论
 
-            print('caught count: ', count)
+            print('当前帖子评论数: ', count)
             # 点击评论按钮
             comment_btn = self.wait.until(EC.presence_of_element_located((By.XPATH, comment_btn_path.format(cursor))))
             try:
@@ -69,7 +69,8 @@ class doComments(object):
             send_btn.click()
 
             # 等待 '发送完成' 提示消失
-            print('第{}次评论完成 ...'.format(cursor))
+            print('第{}次评论完成 ...'.format(rec))
+            rec += 1
             time.sleep(2)
 
             # 再次点击 评论数字 收起评论条目

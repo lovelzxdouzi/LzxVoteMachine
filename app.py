@@ -4,9 +4,6 @@ from libs.goCenter import *
 from libs.putSeed import *
 from libs.Status import *
 
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
-from PyQt5.QtCore import *
 
 """
  超话打榜规则：

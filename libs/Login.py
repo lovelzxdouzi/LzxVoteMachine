@@ -89,7 +89,6 @@ class Login(object):
             self.open()
         time.sleep(2)
 
-
     def get_image(self, name="captcha.png"):
         """
         获取验证码图片

@@ -25,7 +25,6 @@ if __name__ == '__main__':
     # 假设第一天种下的土豆都发芽了，则分数会保存并积累到下一天。
     # No.[2] 非常重要!!! 没有关注超话，在超话内发帖毫无意义！不会得分！
     """
-    global result
     accounts = readAccounts().get()
     for name, pswd in accounts.items():
         driver = webdriver.Chrome()
@@ -34,9 +33,6 @@ if __name__ == '__main__':
             # TODO: 设置进度记录仪
             driver = Login(driver, name, pswd).run()
             print('操作进度：登录完成')
-
-            # TODO：登录之后一定要检测一下是否登陆成功！
-
             driver = goCenter(driver).run()
             print('操作进度：领分完成')
             driver = AutoSign(driver).run()
@@ -60,7 +56,6 @@ if __name__ == '__main__':
 
 # TODO:
 """ 
-    登录后，验证一下是否真的登录了！！
     单个账号的进度
     8 个超话的自动签到
 """

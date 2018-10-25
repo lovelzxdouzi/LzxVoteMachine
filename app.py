@@ -3,7 +3,7 @@ from libs.Auto_Sign import *
 from libs.goCenter import *
 from libs.putSeed import *
 from libs.Status import *
-
+import os.path
 
 """
  超话打榜规则：
@@ -12,7 +12,7 @@ from libs.Status import *
  20 个 被评论
 """
 
-# main app:
+# main app
 if __name__ == '__main__':
     """
     # 新小号打榜流程
@@ -25,6 +25,11 @@ if __name__ == '__main__':
     # 假设第一天种下的土豆都发芽了，则分数会保存并积累到下一天。
     # No.[2] 非常重要!!! 没有关注超话，在超话内发帖毫无意义！不会得分！
     """
+
+    my_path = os.path.abspath(os.path.dirname(__file__))
+    driver_path = os.path.join(my_path, 'tools/chromedriver.exe')
+    print('工作目录：', driver_path)
+
     accounts = readAccounts().get()
     for name, pswd in accounts.items():
         driver = webdriver.Chrome()
@@ -57,5 +62,6 @@ if __name__ == '__main__':
 # TODO:
 """ 
     单个账号的进度
-    8 个超话的自动签到
+    -upgrade version: 只给评论小分队用的 自动评论器专业版
+    -upgrade version: 只给阅读小分队用的 自动点赞转发专业版
 """

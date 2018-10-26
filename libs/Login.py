@@ -183,7 +183,7 @@ class Login(object):
                 ).click_and_hold().perform()
             else:
                 # 小幅移动次数
-                times = 30
+                times = 25
                 for i in range(times):
                     ActionChains(self.driver).move_by_offset(
                         dx / times, dy / times
@@ -201,20 +201,28 @@ class Login(object):
                 dy = (
                         circles[numbers[index + 1] - 1].location["y"] - circle.location["y"]
                 )
-        time.sleep(2)
+
+        move_ret = self.driver.find_element_by_xpath(move_ret_path)
+        if move_ret == '验证码已过期' or move_ret == '验证失败':
+            return True
+        else:
+            return False
 
     def loginCheck(self):
         # 登录检查，是否真的登录了账号:
+
+        self.driver.set_window_size(900, 455)
         self.to_page(mainst_url)
-        try:
-            print(u'INFO: 登录检查...')
-            self.driver.find_elements_by_xpath(check_path)
-        except NoSuchElementException as e:
+
+        print(u'INFO: 登录检查...')
+        gn_position = self.wait.until(EC.presence_of_element_located((By.XPATH, gn_position_path)))
+        html = gn_position.get_attribute('innerHTML')
+
+        if '注册' in html or '登录' in html:
             print(u'INFO: 登录异常，重新登录中...')
             self.run()
-        except WebDriverException as w:
-            print(u'INFO: 登录异常，重新登录中...')
-            self.run()
+        else:
+            print(u'INFO: 登录检查通过...')
 
     def run(self):
         """
@@ -222,10 +230,13 @@ class Login(object):
         :return: driver 返回浏览器driver 以备之后使用
         """
         self.open()
-        image = self.get_image()
-        numbers = self.detect_image(image)
-        self.move(numbers)
-        time.sleep(10)
+        loop = True
+        # 预防 拖动轨迹 失败
+        while loop:
+            image = self.get_image()
+            numbers = self.detect_image(image)
+            loop = self.move(numbers)
+            time.sleep(5)
         self.loginCheck()
 
         return self.driver

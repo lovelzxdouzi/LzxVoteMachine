@@ -32,7 +32,7 @@ if __name__ == '__main__':
 
     accounts = readAccounts().get()
     for name, pswd in accounts.items():
-        driver = webdriver.Chrome()
+        driver = webdriver.Chrome(driver_path)
         try:
             print('-----账号：{} 正在打榜：-----'.format(name))
             # TODO: 设置进度记录仪
@@ -49,15 +49,18 @@ if __name__ == '__main__':
             print('INFO: 操作进度：播种完成')
             driver = goCenter(driver).sendScore()
 
-            driver.close()
+            try:
+                driver.quit()
+            except AttributeError as a:
+                continue
         except TimeoutException as t:
             print(u'出现超时现象。挖土豆机已经终止')
-            driver.close()
+            driver.quit()
             pass
         except WebDriverException as e:
             print(e)
             print(u'挖土豆机浏览器引擎出现问题，当前账号打榜已终止。')
-            driver.close()
+            driver.quit()
 
 # TODO:
 """ 

@@ -48,8 +48,8 @@ class AutoSign(object):
             time.sleep(3)
 
     def run(self):
-        url_set = [mainst_url, wtd_url, zdz_url, cdb_url, xkl_url]
-
+        url_set = [wtd_url, zdz_url, cdb_url, xkl_url]
+        self.doQuery()
         for url in url_set:
             self.to_page(url)
             self.doQuery()

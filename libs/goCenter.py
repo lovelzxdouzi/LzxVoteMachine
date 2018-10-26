@@ -14,28 +14,37 @@ class goCenter(object):
 
     def run(self):
         # 1. 进任务中心领分
+
+        # 先进送分页面，如果没分，送分按钮就是去任务中心的按钮
         self.to_page(vote_url)
         try:
             center = self.wait.until(EC.presence_of_element_located((By.XPATH, center_path)))
         except TimeoutException:
-            print(u'现在已经没积分啦!')
+            print(u'现在已经没积分啦!准备进入任务中心领分...')
             center = self.driver.find_element_by_xpath(vote_btn_path)
         center.click()
         time.sleep(5)
 
-        try:
-            new_user_bonus = self.driver.find_element_by_xpath(new_user_bonus_path)
-            if new_user_bonus.text == '已领取' or new_user_bonus.text == '打开':
+        # 判断老号还是新号，看 任务中心的 dl 是 2个还是 3个
+        first_title = self.wait.until(EC.presence_of_element_located((By.XPATH, first_title_path))).text
+        if first_title == '新手任务':
+            # 是新号：
+            try:
+                new_user_bonus = self.driver.find_element_by_xpath(new_user_bonus_path)
+                text = new_user_bonus.text
+                if text == '去关注' or text == '已领取' or text == '打开' or text == '下载':
+                    pass
+                else:
+                    new_user_bonus.click()
+                    time.sleep(1)
+            except NoSuchElementException:
+                print(u'新手关注超话任务已完成...')
                 pass
-            else:
-                new_user_bonus.click()
-                time.sleep(1)
-        except NoSuchElementException:
-            print(u'新手关注超话任务已完成...')
-            pass
-        except WebDriverException as e:
-            print(e.stacktrace)
-            pass
+            except WebDriverException as e:
+                print(e.stacktrace)
+                pass
+        # elif first_title == '每日任务':
+            # 相对而言是老号：
 
         lxfw_bonus = self.wait.until(EC.presence_of_element_located((By.XPATH, lxfw_bonus_path)))
         comment_bonus = self.wait.until(EC.presence_of_element_located((By.XPATH, comment_bonus_path)))

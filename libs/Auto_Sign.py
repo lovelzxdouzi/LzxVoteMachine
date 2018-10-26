@@ -23,7 +23,7 @@ class AutoSign(object):
 
             if sign_btn.text != '已关注':
                 sign_btn.click()
-                print('[{}] 签到完成....'.format(title.text))
+                print('INFO: [{}] 签到完成....'.format(title.text))
             elif sign_btn.text == '已签到':
                 pass
 
@@ -44,7 +44,7 @@ class AutoSign(object):
                 self.driver.refresh()
                 sign_btn = self.wait.until(EC.presence_of_element_located((By.XPATH, sign_btn_poth)))
                 sign_btn.click()
-                print('[{}] 签到完成....'.format(title.text))
+                print('INFO: [{}] 签到完成....'.format(title.text))
             time.sleep(3)
 
     def run(self):

@@ -41,7 +41,7 @@ class doComments(object):
 
             # 检查 wrapper 的评论数量，小于等于19 则 给评论
 
-            print('当前帖子评论数: ', count)
+            print('INFO: 当前帖子评论数: ', count)
             # 点击评论按钮
             comment_btn = self.wait.until(EC.presence_of_element_located((By.XPATH, comment_btn_path.format(cursor))))
             try:

@@ -34,19 +34,19 @@ if __name__ == '__main__':
     for name, pswd in accounts.items():
         driver = webdriver.Chrome()
         try:
-            print('账号：{} 正在打榜：'.format(name))
+            print('-----账号：{} 正在打榜：-----'.format(name))
             # TODO: 设置进度记录仪
             driver = Login(driver, name, pswd).run()
-            print('操作进度：登录完成')
+            print('INFO: 操作进度：登录完成')
             driver = goCenter(driver).run()
-            print('操作进度：领分完成')
+            print('INFO: 操作进度：领分完成')
             driver = AutoSign(driver).run()
-            print('操作进度：自动签到完成')
+            print('INFO: 操作进度：自动签到完成')
             driver = doComments(driver).run()
-            print('操作进度：自动评论完成')
+            print('INFO: 操作进度：自动评论完成')
 
             driver = putSeed(driver).run()
-            print('操作进度：播种完成')
+            print('INFO: 操作进度：播种完成')
             driver = goCenter(driver).sendScore()
 
             driver.close()

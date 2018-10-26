@@ -3,10 +3,15 @@
   <component name="ChangeListManager">
     <list default="true" id="335f469c-33d6-46dc-ae59-97e3eba1d426" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account_set.txt" beforeDir="false" afterPath="$PROJECT_DIR$/account_set.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/captcha.png" beforeDir="false" afterPath="$PROJECT_DIR$/captcha.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/Auto_Sign.py" beforeDir="false" afterPath="$PROJECT_DIR$/libs/Auto_Sign.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/Login.py" beforeDir="false" afterPath="$PROJECT_DIR$/libs/Login.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/doComment.py" beforeDir="false" afterPath="$PROJECT_DIR$/libs/doComment.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/goCenter.py" beforeDir="false" afterPath="$PROJECT_DIR$/libs/goCenter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/path_url_lib.py" beforeDir="false" afterPath="$PROJECT_DIR$/libs/path_url_lib.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src.png" beforeDir="false" afterPath="$PROJECT_DIR$/src.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/挖土豆自动机使用教程.pdf" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,7 +25,7 @@
     <SUITE FILE_PATH="coverage/myLzxWTDproj$goCenter.coverage" NAME="goCenter Coverage Results" MODIFIED="1540047146907" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/libs" />
     <SUITE FILE_PATH="coverage/myLzxWTDproj$GetImage.coverage" NAME="GetImage Coverage Results" MODIFIED="1539921047319" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/myLzxWTDproj$Login.coverage" NAME="Login Coverage Results" MODIFIED="1539921867738" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/libs" />
-    <SUITE FILE_PATH="coverage/LzxVoteMachine$app.coverage" NAME="app Coverage Results" MODIFIED="1540294382743" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/LzxVoteMachine$app.coverage" NAME="app Coverage Results" MODIFIED="1540529985820" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/myLzxWTDproj$getAccount.coverage" NAME="getAccount Coverage Results" MODIFIED="1540034020992" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/libs" />
     <SUITE FILE_PATH="coverage/myLzxWTDproj$app.coverage" NAME="app Coverage Results" MODIFIED="1540286666497" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/myLzxWTDproj$contextLib.coverage" NAME="contextLib Coverage Results" MODIFIED="1540014023506" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/libs" />
@@ -29,34 +34,34 @@
     <session id="-346546244">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="17" />
-          <entry key="project.open.time.0" value="1" />
+          <entry key="project.closed" value="20" />
+          <entry key="project.open.time.0" value="3" />
           <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.3" value="1" />
           <entry key="project.open.time.4" value="1" />
           <entry key="project.open.time.5" value="4" />
           <entry key="project.open.time.6" value="5" />
-          <entry key="project.open.time.7" value="3" />
+          <entry key="project.open.time.7" value="4" />
           <entry key="project.open.time.8" value="3" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="20" />
+          <entry key="project.opened" value="23" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="js" value="1" />
-          <entry key="png" value="6" />
-          <entry key="py" value="96" />
-          <entry key="txt" value="10" />
+          <entry key="png" value="9" />
+          <entry key="py" value="107" />
+          <entry key="txt" value="11" />
           <entry key="ui" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Image" value="6" />
+          <entry key="Image" value="9" />
           <entry key="JavaScript" value="1" />
-          <entry key="PLAIN_TEXT" value="10" />
-          <entry key="Python" value="96" />
+          <entry key="PLAIN_TEXT" value="11" />
+          <entry key="Python" value="107" />
           <entry key="Qt UI file" value="5" />
         </counts>
       </usages-collector>
@@ -64,15 +69,15 @@
         <counts>
           <entry key="dummy" value="17" />
           <entry key="js" value="42" />
-          <entry key="py" value="11489" />
-          <entry key="txt" value="128" />
+          <entry key="py" value="12049" />
+          <entry key="txt" value="137" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="JavaScript" value="42" />
-          <entry key="PLAIN_TEXT" value="145" />
-          <entry key="Python" value="11489" />
+          <entry key="PLAIN_TEXT" value="154" />
+          <entry key="Python" value="12049" />
         </counts>
       </usages-collector>
     </session>
@@ -82,8 +87,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1242">
-              <caret line="55" column="16" lean-forward="true" selection-start-line="55" selection-start-column="16" selection-end-line="55" selection-end-column="16" />
+            <state relative-caret-position="459">
+              <caret line="47" column="42" lean-forward="true" selection-start-line="47" selection-start-column="42" selection-end-line="47" selection-end-column="42" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -92,55 +97,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/libs/Auto_Sign.py">
+        <entry file="file://$PROJECT_DIR$/libs/Status.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="8" column="15" selection-start-line="8" selection-start-column="15" selection-end-line="8" selection-end-column="15" />
-              <folding>
-                <element signature="e#0#24#0" expanded="true" />
-                <marker date="1540292336258" expanded="true" signature="82:87" ph="..." />
-                <marker date="1540292336258" expanded="true" signature="283:318" ph="..." />
-                <marker date="1540292336258" expanded="true" signature="336:1740" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/libs/path_url_lib.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="568">
-              <caret line="37" column="38" lean-forward="true" selection-start-line="37" selection-start-column="38" selection-end-line="37" selection-end-column="38" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/libs/Login.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="811">
-              <caret line="80" column="13" selection-start-line="80" selection-start-column="13" selection-end-line="80" selection-end-column="13" />
-              <folding>
-                <element signature="e#24#54#0" expanded="true" />
-                <marker date="1540336239933" expanded="true" signature="859:916" ph="..." />
-                <marker date="1540336239933" expanded="true" signature="5553:5562" ph="..." />
-                <marker date="1540336239933" expanded="true" signature="5553:5922" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/libs/goCenter.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="811">
-              <caret line="40" column="15" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="15" />
-              <folding>
-                <element signature="e#0#31#0" expanded="true" />
-                <marker date="1540051441017" expanded="true" signature="82:87" ph="..." />
-                <marker date="1540051441017" expanded="true" signature="274:331" ph="..." />
-                <marker date="1540051441017" expanded="true" signature="345:354" ph="..." />
-              </folding>
+            <state relative-caret-position="594">
+              <caret line="22" column="24" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -159,10 +119,10 @@
     <findStrings>
       <find>com</find>
       <find>comment</find>
-      <find>print</find>
       <find>img</find>
       <find>ImagE</find>
       <find>Imag</find>
+      <find>print</find>
     </findStrings>
   </component>
   <component name="Git.Rebase.Settings">
@@ -186,16 +146,16 @@
         <option value="$PROJECT_DIR$/libs/getAccount.py" />
         <option value="$PROJECT_DIR$/libs/getAccounts.py" />
         <option value="$PROJECT_DIR$/libs/readAccounts.py" />
-        <option value="$PROJECT_DIR$/libs/goCenter.py" />
         <option value="$PROJECT_DIR$/libs/Status.py" />
         <option value="$PROJECT_DIR$/libs/putSeed.py" />
         <option value="$PROJECT_DIR$/libs/Compare.py" />
+        <option value="$PROJECT_DIR$/tools/requirements.txt" />
         <option value="$PROJECT_DIR$/libs/path_url_lib.py" />
+        <option value="$PROJECT_DIR$/account_set.txt" />
+        <option value="$PROJECT_DIR$/libs/goCenter.py" />
+        <option value="$PROJECT_DIR$/libs/Login.py" />
         <option value="$PROJECT_DIR$/libs/Auto_Sign.py" />
         <option value="$PROJECT_DIR$/libs/doComment.py" />
-        <option value="$PROJECT_DIR$/account_set.txt" />
-        <option value="$PROJECT_DIR$/libs/Login.py" />
-        <option value="$PROJECT_DIR$/tools/requirements.txt" />
         <option value="$PROJECT_DIR$/app.py" />
       </list>
     </option>
@@ -207,9 +167,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="y" value="33" />
-    <option name="width" value="1940" />
-    <option name="height" value="929" />
+    <option name="x" value="807" />
+    <option name="width" value="974" />
+    <option name="height" value="1041" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -219,6 +179,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -233,18 +194,12 @@
             </path>
             <path>
               <item name="LzxVoteMachine" type="b2602c69:ProjectViewProjectNode" />
-              <item name="myLzxWTDproj" type="462c0819:PsiDirectoryNode" />
-              <item name="tools" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="LzxVoteMachine" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -562,7 +517,14 @@
       <option name="project" value="LOCAL" />
       <updated>1540391950604</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="upgrade20181025-2205">
+      <created>1540476317916</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1540476317916</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TodoView">
@@ -578,12 +540,12 @@
     <frame x="-8" y="-8" width="1936" height="1050" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49851632" visible="true" weight="0.14498934" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49851632" visible="true" weight="0.14978679" />
       <window_info id="Structure" order="1" sideWeight="0.5014837" side_tool="true" weight="0.12739871" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3264192" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49881798" weight="0.27329975" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49881798" visible="true" weight="0.27540985" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.42890996" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -645,7 +607,8 @@
     <MESSAGE value="upgrade20181024-0709" />
     <MESSAGE value="upgrade20181024-0716" />
     <MESSAGE value="upgrade20181024-2239" />
-    <option name="LAST_COMMIT_MESSAGE" value="upgrade20181024-2239" />
+    <MESSAGE value="upgrade20181025-2205" />
+    <option name="LAST_COMMIT_MESSAGE" value="upgrade20181025-2205" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/img/code.png" />
@@ -677,13 +640,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/libs/readAccounts.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="7" column="28" selection-start-line="7" selection-start-column="28" selection-end-line="7" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/site-packages/selenium/webdriver/remote/errorhandler.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="78">
@@ -691,45 +647,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/captcha.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
     <entry file="file://$PROJECT_DIR$/libs/src.png" />
-    <entry file="file://$PROJECT_DIR$/libs/contextLib.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="2" selection-start-line="2" selection-end-line="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/libs/Status.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="22" column="24" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/libs/putSeed.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="8" column="8" lean-forward="true" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharm2018.2/system/python_stubs/-1779745425/builtins.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-28">
           <caret line="177" column="4" selection-start-line="177" selection-start-column="4" selection-end-line="177" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/libs/Compare.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="61" column="37" selection-start-line="61" selection-start-column="37" selection-end-line="61" selection-end-column="37" />
         </state>
       </provider>
     </entry>
@@ -740,20 +665,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/libs/doComment.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-513">
-          <caret line="43" column="37" selection-start-line="43" selection-start-column="37" selection-end-line="43" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/account_set.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="6" column="20" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tools/requirements.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -761,56 +672,109 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/libs/Login.py">
+    <entry file="file://$PROJECT_DIR$/captcha.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/path_url_lib.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="811">
-          <caret line="80" column="13" selection-start-line="80" selection-start-column="13" selection-end-line="80" selection-end-column="13" />
-          <folding>
-            <element signature="e#24#54#0" expanded="true" />
-            <marker date="1540336239933" expanded="true" signature="859:916" ph="..." />
-            <marker date="1540336239933" expanded="true" signature="5553:5562" ph="..." />
-            <marker date="1540336239933" expanded="true" signature="5553:5922" ph="..." />
-          </folding>
+        <state relative-caret-position="460">
+          <caret line="34" column="67" lean-forward="true" selection-start-line="34" selection-start-column="67" selection-end-line="34" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/account_set.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1539">
+          <caret line="57" column="25" selection-start-line="57" selection-start-column="25" selection-end-line="57" selection-end-column="25" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/libs/goCenter.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="811">
-          <caret line="40" column="15" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="15" />
+        <state relative-caret-position="621">
+          <caret line="32" column="77" selection-start-line="32" selection-start-column="77" selection-end-line="32" selection-end-column="77" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
-            <marker date="1540051441017" expanded="true" signature="82:87" ph="..." />
-            <marker date="1540051441017" expanded="true" signature="274:331" ph="..." />
-            <marker date="1540051441017" expanded="true" signature="345:354" ph="..." />
+            <marker date="1540530127708" expanded="true" signature="82:87" ph="..." />
+            <marker date="1540530127708" expanded="true" signature="274:331" ph="..." />
+            <marker date="1540530127708" expanded="true" signature="345:354" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/libs/path_url_lib.py">
+    <entry file="file://$PROJECT_DIR$/libs/Login.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="568">
-          <caret line="37" column="38" lean-forward="true" selection-start-line="37" selection-start-column="38" selection-end-line="37" selection-end-column="38" />
+        <state relative-caret-position="194">
+          <caret line="215" column="26" selection-start-line="215" selection-start-column="26" selection-end-line="215" selection-end-column="26" />
+          <folding>
+            <element signature="e#24#54#0" expanded="true" />
+            <marker date="1540530442511" expanded="true" signature="859:916" ph="..." />
+            <marker date="1540530442511" expanded="true" signature="1637:1930" ph="..." />
+            <marker date="1540530442511" expanded="true" signature="5925:5934" ph="..." />
+            <marker date="1540530442511" expanded="true" signature="5925:6312" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/libs/Auto_Sign.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="8" column="15" selection-start-line="8" selection-start-column="15" selection-end-line="8" selection-end-column="15" />
+        <state relative-caret-position="270">
+          <caret line="25" column="29" selection-start-line="25" selection-start-column="29" selection-end-line="25" selection-end-column="29" />
           <folding>
             <element signature="e#0#24#0" expanded="true" />
-            <marker date="1540292336258" expanded="true" signature="82:87" ph="..." />
-            <marker date="1540292336258" expanded="true" signature="283:318" ph="..." />
-            <marker date="1540292336258" expanded="true" signature="336:1740" ph="..." />
+            <marker date="1540530490165" expanded="true" signature="82:87" ph="..." />
+            <marker date="1540530490165" expanded="true" signature="283:318" ph="..." />
+            <marker date="1540530490165" expanded="true" signature="336:1752" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/putSeed.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-116">
+          <caret line="8" column="8" lean-forward="true" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/doComment.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2295">
+          <caret line="87" column="26" lean-forward="true" selection-start-line="87" selection-start-column="26" selection-end-line="87" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/readAccounts.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="7" column="28" selection-start-line="7" selection-start-column="28" selection-end-line="7" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/Compare.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1231">
+          <caret line="61" column="37" selection-start-line="61" selection-start-column="37" selection-end-line="61" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/contextLib.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/Status.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="594">
+          <caret line="22" column="24" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1242">
-          <caret line="55" column="16" lean-forward="true" selection-start-line="55" selection-start-column="16" selection-end-line="55" selection-end-column="16" />
+        <state relative-caret-position="459">
+          <caret line="47" column="42" lean-forward="true" selection-start-line="47" selection-start-column="42" selection-end-line="47" selection-end-column="42" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>

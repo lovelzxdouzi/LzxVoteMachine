@@ -56,7 +56,19 @@ class Login(object):
         username.send_keys(self.username)
         password.send_keys(self.password)
         button.click()
-        time.sleep(3)
+
+        # 等待 验证轨迹图片 的第一次导引动画
+        time.sleep(4)
+        self.errCheck()
+
+    def errCheck(self):
+        errmsg = self.wait.until(EC.element_to_be_clickable((By.ID, "errorMsg"))).text
+        if len(errmsg) > 10:
+            print(u'INFO: 出现红字errMsg, 需要刷新, 重新获取轨迹图...')
+            self.driver.refresh()
+            self.open()
+        else:
+            print(u'INFO: 没有出现登录errMsg.')
 
     def get_position(self):
         """
@@ -148,7 +160,7 @@ class Login(object):
         # 返回顺序
         pic_name = max(dic, key=dic.get)
         numbers = [int(number) for number in list(pic_name.split(".")[0])]
-        print("拖动顺序", numbers)
+        print("INFO: 拖动顺序", numbers)
         return numbers
 
     def move(self, numbers):
@@ -195,13 +207,13 @@ class Login(object):
         # 登录检查，是否真的登录了账号:
         self.to_page(mainst_url)
         try:
-            print(u'登录检查...')
+            print(u'INFO: 登录检查...')
             self.driver.find_elements_by_xpath(check_path)
         except NoSuchElementException as e:
-            print(u'登录异常，重新登录中...')
+            print(u'INFO: 登录异常，重新登录中...')
             self.run()
         except WebDriverException as w:
-            print(u'登录异常，重新登录中...')
+            print(u'INFO: 登录异常，重新登录中...')
             self.run()
 
     def run(self):

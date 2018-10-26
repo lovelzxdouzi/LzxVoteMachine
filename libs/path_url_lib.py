@@ -5,7 +5,7 @@ zdz_url = 'https://weibo.com/p/100808dabb2c01ce6873ff318f9e6e43211173/super_inde
 cdb_url = 'https://weibo.com/p/1008082ba4d2bd5eba02778d7eb105551e72b9/super_index'
 xkl_url = 'https://weibo.com/p/1008085db32612886f0e6498427553470911d9/super_index'
 
-vote_url = 'http://t.cn/EhpZy3L'
+vote_url = 'https://huati.weibo.cn/super/pickoppo?page_id=100808132000b677812b65d29154c4ec164a96'
 
 # 登录检查所需 xpath
 check_path = '//*[@id="pl_common_top"]/div/div/div[3]/div[2]/div[2]/a/em'
@@ -29,6 +29,7 @@ select_all_btn_path = '//*[@id="app"]/div/div[1]/div/ul[1]/li[4]'
 vote_btn_path = '//*[@id="app"]/div/div[2]/div[2]/span[2]'
 rank_info_path = '//*[@id="app"]/div/div[1]/div/div[1]/span'
 desc_info_path = '//*[@id="app"]/div/div[1]/div/div[2]'
+first_title_path = '//*[@id="app"]/div/section/dl[1]/dt'
 
 # 任务中心 领取分数 xpath
 new_user_bonus_path = '//*[@id="app"]/div/section/dl[1]/dd[1]/a[1]'

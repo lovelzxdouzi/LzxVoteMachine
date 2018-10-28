@@ -11,7 +11,9 @@ class AutoSign(object):
     def to_page(self, url):
         self.driver.get(url)
 
-    def doQuery(self):
+    def doQuery(self, url):
+        self.to_page(url)
+
         title = self.wait.until(EC.presence_of_element_located((By.XPATH, title_path)))
         focus_btn = self.wait.until(EC.presence_of_element_located((By.XPATH, focus_btn_path)))
         info = focus_btn.text
@@ -19,13 +21,16 @@ class AutoSign(object):
         time.sleep(5)
         # 如果是已关注，则点击右边的签到按钮:
         if info == 'Y 已关注g':
-            sign_btn = self.driver.find_element_by_xpath(sign_btn_poth)
-
-            if sign_btn.text != '已关注':
-                sign_btn.click()
-                print('INFO: [{}] 签到完成....'.format(title.text))
-            elif sign_btn.text == '已签到':
-                pass
+            try:
+                sign_btn = self.driver.find_element_by_xpath(sign_btn_poth)
+                if sign_btn.text != '已关注':
+                    sign_btn.click()
+                    print('INFO: [{}] 签到完成....'.format(title.text))
+                elif sign_btn.text == '已签到':
+                    pass
+            except NoSuchElementException:
+                print(u'没有找到签到按钮,准备刷新一下...')
+                self.driver.refresh()
 
         # 如果还未关注，则点击关注，再签到
         elif info == '+关注':
@@ -45,14 +50,17 @@ class AutoSign(object):
                 self.driver.refresh()
                 sign_btn = self.wait.until(EC.presence_of_element_located((By.XPATH, sign_btn_poth)))
                 sign_btn.click()
-                
+
             time.sleep(3)
 
     def run(self):
         url_set = [mainst_url, wtd_url, zdz_url, cdb_url, xkl_url]
 
         for url in url_set:
-            self.to_page(url)
-            self.doQuery()
+            try:
+                self.doQuery(url)
+            except WebDriverWait as w:
+                print(w)
+                continue
 
         return self.driver

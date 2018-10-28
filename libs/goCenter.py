@@ -6,7 +6,6 @@ class goCenter(object):
     def __init__(self, driver):
         self.driver = driver
         self.wait = WebDriverWait(self.driver, 10, 0.5)
-        
 
     def to_page(self, url):
         self.driver.get(url)
@@ -14,6 +13,7 @@ class goCenter(object):
 
     def run(self):
         # 1. 进任务中心领分
+        global module
         self.driver.set_window_size(300, 980)
         # 先进送分页面，如果没分，送分按钮就是去任务中心的按钮
         self.to_page(vote_url)
@@ -27,6 +27,7 @@ class goCenter(object):
 
         # 判断老号还是新号，看 任务中心的 dl 是 2个还是 3个
         first_title = self.wait.until(EC.presence_of_element_located((By.XPATH, first_title_path))).text
+        moudle = 2
         if first_title == '新手任务':
             # 是新号：
             try:
@@ -43,28 +44,17 @@ class goCenter(object):
             except WebDriverException as e:
                 print(e.stacktrace)
                 pass
-        # elif first_title == '每日任务':
+        elif first_title == '每日任务':
             # 相对而言是老号：
+            moudle = 1
 
-        lxfw_bonus = self.wait.until(EC.presence_of_element_located((By.XPATH, lxfw_bonus_path)))
-        comment_bonus = self.wait.until(EC.presence_of_element_located((By.XPATH, comment_bonus_path)))
+        lxfw_bonus = self.wait.until(EC.presence_of_element_located((By.XPATH, lxfw_bonus_path.format(moudle))))
 
         if lxfw_bonus.text == '已领取':
             pass
         else:
             lxfw_bonus.click()
             time.sleep(2)
-
-        self.driver.execute_script("arguments[0].scrollIntoView();", comment_bonus)
-        time.sleep(2)
-
-        twenty_bonus = self.wait.until(EC.presence_of_element_located((By.XPATH, twenty_bonus_path)))
-        if twenty_bonus.text == '':
-            twenty_bonus = self.wait.until(EC.presence_of_element_located((By.XPATH, saved_twenty_bonus_path)))
-        if twenty_bonus.text == '去完成' or twenty_bonus.text == '已完成':
-            pass
-        else:
-            twenty_bonus.click()
 
         return self.driver
 
@@ -92,4 +82,3 @@ class goCenter(object):
         print(rank_info.text, ',', desc_info.text)
 
         return self.driver
-

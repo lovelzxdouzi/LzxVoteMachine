@@ -34,6 +34,7 @@ class AutoSign(object):
             try:
                 sign_btn = self.wait.until(EC.presence_of_element_located((By.XPATH, sign_btn_poth)))
                 sign_btn.click()
+                print('INFO: [{}] 签到完成....'.format(title.text))
             except TimeoutException as e:
                 print(e)
                 self.driver.refresh()
@@ -44,12 +45,12 @@ class AutoSign(object):
                 self.driver.refresh()
                 sign_btn = self.wait.until(EC.presence_of_element_located((By.XPATH, sign_btn_poth)))
                 sign_btn.click()
-                print('INFO: [{}] 签到完成....'.format(title.text))
+                
             time.sleep(3)
 
     def run(self):
-        url_set = [wtd_url, zdz_url, cdb_url, xkl_url]
-        self.doQuery()
+        url_set = [mainst_url, wtd_url, zdz_url, cdb_url, xkl_url]
+
         for url in url_set:
             self.to_page(url)
             self.doQuery()

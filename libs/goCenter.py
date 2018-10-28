@@ -6,7 +6,7 @@ class goCenter(object):
     def __init__(self, driver):
         self.driver = driver
         self.wait = WebDriverWait(self.driver, 10, 0.5)
-        self.driver.set_window_size(500, 980)
+        
 
     def to_page(self, url):
         self.driver.get(url)
@@ -14,7 +14,7 @@ class goCenter(object):
 
     def run(self):
         # 1. 进任务中心领分
-
+        self.driver.set_window_size(300, 980)
         # 先进送分页面，如果没分，送分按钮就是去任务中心的按钮
         self.to_page(vote_url)
         try:

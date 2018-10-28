@@ -11,9 +11,12 @@ class readAccounts(object):
         self.accounts = {}
 
         for line in all_lines:
+            line = re.sub('\n', '', line)
+            if line == '':
+                continue
             account = line.split('----')[0]
             password = line.split('----')[1]
-            password = re.sub('\n', '', password)
+            
 
             self.accounts[account] = password
 

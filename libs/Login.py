@@ -21,6 +21,8 @@ import time
 import re
 from os import listdir
 
+import logging
+
 TEMPLATES_FOLDER = "./image/"
 
 
@@ -32,6 +34,10 @@ class Login(object):
         self.wait = WebDriverWait(self.driver, 10, 0.5)  # 等待时间
         self.username = username
         self.password = password
+        """
+        # 读取日志
+        """
+        self.logger = logging.getLogger('test')
 
     def to_page(self, url):
         self.driver.get(url)
@@ -43,6 +49,8 @@ class Login(object):
         :return:
         """
         # 进入移动端微博登录页面
+        self.logger.debug('进入移动端微博登录页面')
+        
         self.driver.set_window_size(100, 455)
         self.driver.get(self.url)
         username = self.wait.until(EC.presence_of_element_located((By.ID, "loginName")))
@@ -52,22 +60,28 @@ class Login(object):
         button = self.wait.until(EC.element_to_be_clickable((By.ID, "loginAction")))
 
         # 填入账号密码
+        self.logger.debug('填入账号密码')
+        
         username.clear()
         username.send_keys(self.username)
         password.send_keys(self.password)
         button.click()
 
         # 等待 验证轨迹图片 的第一次导引动画
+        self.logger.debug('等待 验证轨迹图片 的第一次导引动画')
+        
         time.sleep(4)
         self.errCheck()
 
     def errCheck(self):
         errmsg = self.wait.until(EC.element_to_be_clickable((By.ID, "errorMsg"))).text
         if len(errmsg) > 10:
+            self.logger.debug('出现红字errMsg, 需要刷新, 重新获取轨迹图...')
             print(u'INFO: 出现红字errMsg, 需要刷新, 重新获取轨迹图...')
             self.driver.refresh()
             self.open()
         else:
+            self.logger.debug('没有出现登录errMsg.')
             print(u'INFO: 没有出现登录errMsg.')
 
     def get_position(self):
@@ -75,7 +89,8 @@ class Login(object):
         获取验证码位置
         :return:
         """
-
+        self.logger.debug('获取验证码位置')
+        
         # 获取轨迹验证码图片
         try:
             img = self.wait.until(
@@ -94,9 +109,11 @@ class Login(object):
 
             return top, bottom, left, right
         except TimeoutException as e:
+            self.logger.debug('TimeoutException - %s', e)
             print(e.args)
             self.open()
         except NoSuchElementException as e:
+            self.logger.debug('NoSuchElementException - %s', e)
             print(e.args)
             self.open()
         time.sleep(2)
@@ -107,6 +124,8 @@ class Login(object):
         :param name: 验证码图片名字
         :return:
         """
+        self.logger.debug('获取验证码图片')
+        
         top, bottom, left, right = self.get_position()
         # 获取整个网页截图
         screenshot = self.driver.get_screenshot_as_png()
@@ -138,6 +157,8 @@ class Login(object):
         :param template: 模板
         :return: True or Flase
         """
+        self.logger.debug('识别相似验证码')
+        
         # 相似度阈值
         threshold = 0.96
         compare_image = CompareImage()
@@ -151,6 +172,8 @@ class Login(object):
         :param image: 图片
         :return: 拖动顺序
         """
+        self.logger.debug('匹配图片')
+        
         dic = {}  # 相似度记录字典
         for template_name in listdir(TEMPLATES_FOLDER):
             pic_name = template_name
@@ -169,6 +192,8 @@ class Login(object):
         :param numbers:
         :return:
         """
+        self.logger.debug('根据顺序拖动')
+        
         # 获得四个按点
         circles = self.driver.find_elements_by_css_selector(".patt-wrap .patt-circ")
         dx = dy = 0
@@ -210,18 +235,20 @@ class Login(object):
 
     def loginCheck(self):
         # 登录检查，是否真的登录了账号:
-
         self.driver.set_window_size(900, 455)
         self.to_page(mainst_url)
 
         print(u'INFO: 登录检查...')
+        self.logger.debug('登录检查...')
         gn_position = self.wait.until(EC.presence_of_element_located((By.XPATH, gn_position_path)))
         html = gn_position.get_attribute('innerHTML')
 
         if '注册' in html or '登录' in html:
+            self.logger.debug('登录异常，重新登录中...')
             print(u'INFO: 登录异常，重新登录中...')
             self.run()
         else:
+            self.logger.debug('登录检查通过...')
             print(u'INFO: 登录检查通过...')
 
     def run(self):

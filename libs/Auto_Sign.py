@@ -31,6 +31,7 @@ class AutoSign(object):
             except NoSuchElementException:
                 print(u'没有找到签到按钮,准备刷新一下...')
                 self.driver.refresh()
+                self.doQuery(url)
 
         # 如果还未关注，则点击关注，再签到
         elif info == '+关注':

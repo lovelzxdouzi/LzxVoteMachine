@@ -43,7 +43,10 @@ class doComments(object):
                 self.driver.execute_script("arguments[0].scrollIntoView();", info_num)
                 cursor += 1
                 time.sleep(1)
-                count = eval(info_num.text)
+                if info_num.text == '评论':
+                    count = 0
+                else:
+                    count = eval(info_num.text)
 
             # 检查 wrapper 的评论数量，小于等于19 则 给评论
 

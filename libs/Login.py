@@ -225,8 +225,10 @@ class Login(object):
                         circles[numbers[index + 1] - 1].location["y"] - circle.location["y"]
                 )
 
-        move_ret = self.driver.find_element_by_xpath(move_ret_path)
-        if move_ret == '验证码已过期' or move_ret == '验证失败':
+        time.sleep(4)
+        c_url = self.driver.current_url
+
+        if 'passport' in c_url:
             return True
         else:
             return False
@@ -285,7 +287,7 @@ class Login(object):
             image = self.get_image()
             numbers = self.detect_image(image)
             loop = self.move(numbers)
-            time.sleep(5)
+            time.sleep(1)
         self.loginCheck()
 
         return self.driver

@@ -16,9 +16,12 @@ class AutoSign(object):
     def to_page(self, url):
         self.driver.get(url)
 
+
     def doQuery(self):
         self.logger.debug('Do Query')
         self.logger.debug('检查title路径')
+        self.to_page(url)
+
         title = self.wait.until(EC.presence_of_element_located((By.XPATH, title_path)))
         self.logger.debug('检查title路径：成功')
         self.logger.debug('检查focus button路径')
@@ -30,26 +33,19 @@ class AutoSign(object):
         time.sleep(5)
         # 如果是已关注，则点击右边的签到按钮:
         if info == 'Y 已关注g':
-            has_btn = True
             try:
                 sign_btn = self.driver.find_element_by_xpath(sign_btn_poth)
-            except WebDriverException as e:
-                # 如果签到按钮没有刷出来，会exception， 刷新页面
+                if sign_btn.text != '已关注':
+                    sign_btn.click()
+                    self.logger.debug('%s 签到完成....', title.text)
+                    print('INFO: [{}] 签到完成....'.format(title.text))
+                elif sign_btn.text == '已签到':
+                    pass
+            except NoSuchElementException:
+                self.logger.debug('没有找到签到按钮,准备刷新一下...')
+                print(u'没有找到签到按钮,准备刷新一下...')
                 self.driver.refresh()
-                has_btn = False
-
-            if not has_btn:
-                try:
-                    sign_btn = self.driver.find_element_by_xpath(sign_btn_poth)
-                except WebDriverException as e:
-                    # 如果签到按钮没有刷出来，会exception， 去下一个超话
-                    return
-
-            if sign_btn.text != '已关注':
-                sign_btn.click()
-                print('INFO: [{}] 签到完成....'.format(title.text))
-            elif sign_btn.text == '已签到':
-                pass
+                self.doQuery(url)
 
         # 如果还未关注，则点击关注，再签到
         elif info == '+关注':
@@ -58,6 +54,7 @@ class AutoSign(object):
             try:
                 sign_btn = self.wait.until(EC.presence_of_element_located((By.XPATH, sign_btn_poth)))
                 sign_btn.click()
+                print('INFO: [{}] 签到完成....'.format(title.text))
             except TimeoutException as e:
                 print(e)
                 self.driver.refresh()
@@ -68,14 +65,19 @@ class AutoSign(object):
                 self.driver.refresh()
                 sign_btn = self.wait.until(EC.presence_of_element_located((By.XPATH, sign_btn_poth)))
                 sign_btn.click()
-                print('INFO: [{}] 签到完成....'.format(title.text))
+
             time.sleep(3)
 
     def run(self):
-        url_set = [wtd_url, zdz_url, cdb_url, xkl_url]
-        self.doQuery()
+        url_set = [mainst_url, wtd_url, zdz_url, cdb_url, xkl_url]
+
         for url in url_set:
-            self.to_page(url)
-            self.doQuery()
+            try:
+                self.doQuery(url)
+            except WebDriverWait as w:
+                logger.debug('WebDriverWait - 出现问题')
+                logger.debug('WebDriverWait - %s', t)
+                print(w)
+                continue
 
         return self.driver

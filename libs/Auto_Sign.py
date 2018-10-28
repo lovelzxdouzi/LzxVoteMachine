@@ -74,9 +74,11 @@ class AutoSign(object):
         for url in url_set:
             try:
                 self.doQuery(url)
-            except WebDriverWait as w:
+            # 在这里except WebDriverWait会出现问题，所以暂时先注释
+            # except WebDriverWait as w:
+            except Exception as w:
                 logger.debug('WebDriverWait - 出现问题')
-                logger.debug('WebDriverWait - %s', t)
+                logger.debug('WebDriverWait - %s', w)
                 print(w)
                 continue
 

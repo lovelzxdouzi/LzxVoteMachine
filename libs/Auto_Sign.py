@@ -30,7 +30,20 @@ class AutoSign(object):
         time.sleep(5)
         # 如果是已关注，则点击右边的签到按钮:
         if info == 'Y 已关注g':
-            sign_btn = self.driver.find_element_by_xpath(sign_btn_poth)
+            has_btn = True
+            try:
+                sign_btn = self.driver.find_element_by_xpath(sign_btn_poth)
+            except WebDriverException as e:
+                # 如果签到按钮没有刷出来，会exception， 刷新页面
+                self.driver.refresh()
+                has_btn = False
+
+            if not has_btn:
+                try:
+                    sign_btn = self.driver.find_element_by_xpath(sign_btn_poth)
+                except WebDriverException as e:
+                    # 如果签到按钮没有刷出来，会exception， 去下一个超话
+                    return
 
             if sign_btn.text != '已关注':
                 sign_btn.click()

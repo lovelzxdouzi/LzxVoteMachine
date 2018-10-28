@@ -85,14 +85,14 @@ if __name__ == '__main__':
             logger.debug('TimeoutException - 出现超时现象。挖土豆机已经终止')
             logger.debug('TimeoutException - %s', t)
             print(u'出现超时现象。挖土豆机已经终止')
-            #driver.quit()
+            driver.quit()
             pass
         except WebDriverException as e:
             logger.debug('WebDriverException - 挖土豆机浏览器引擎出现问题，当前账号打榜已终止。')
             logger.debug('WebDriverException - %s', e)
             print(e)
             print(u'挖土豆机浏览器引擎出现问题，当前账号打榜已终止。')
-            #driver.quit()
+            driver.quit()
 
 # TODO:
 """ 

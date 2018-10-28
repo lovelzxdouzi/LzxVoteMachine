@@ -36,6 +36,7 @@ first_title_path = '//*[@id="app"]/div/section/dl[1]/dt'
 # 任务中心 领取分数 xpath
 new_user_bonus_path = '//*[@id="app"]/div/section/dl[1]/dd[1]/a[1]'
 lxfw_bonus_path = '//*[@id="app"]/div/section/dl[2]/dd[1]/a'
+old_lxfw_bonus_path = '//*[@id="app"]/div/section/dl[1]/dd[1]/a'
 comment_bonus_path = '//*[@id="app"]/div/section/dl[2]/dd[4]/a[2]'
 twenty_bonus_path = '//*[@id="app"]/div/section/dl[3]/dd/a[1]'
 saved_twenty_bonus_path = '//*[@id="app"]/div/section/dl[3]/dd/a[2]'

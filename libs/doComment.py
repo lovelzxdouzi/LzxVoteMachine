@@ -69,7 +69,7 @@ class doComments(object):
 
             # 随机生成评论字符串
             text = context[random.randint(0, 15)]
-            textarea.send_keys('v'+text)
+            textarea.send_keys(text)
 
             # 发送评论
             send_btn = self.wait.until(EC.element_to_be_clickable((By.XPATH, send_btn_path.format(cursor))))

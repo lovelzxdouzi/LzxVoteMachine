@@ -54,17 +54,37 @@ class goCenter(object):
         # elif first_title == '每日任务':
             # 相对而言是老号：
 
-        self.logger.debug('读取lxfw分')
-        lxfw_bonus = self.wait.until(EC.presence_of_element_located((By.XPATH, lxfw_bonus_path)))
+
+        self.logger.debug('读取lxfw分: %s', first_title)
+        if first_title == '每日任务':
+            # 是二手号
+            self.logger.debug('二手号')
+            try:
+                lxfw_bonus = self.driver.find_element_by_xpath(old_lxfw_bonus_path)
+            except WebDriverException as e:
+                self.driver.refresh()
+                lxfw_bonus = self.driver.find_element_by_xpath(old_lxfw_bonus_path)
+        else:
+            self.logger.debug('其他号')
+            try:
+                lxfw_bonus = self.wait.until(EC.presence_of_element_located((By.XPATH, lxfw_bonus_path)))
+            except WebDriverException as e:
+                self.driver.refresh()
+                lxfw_bonus = self.wait.until(EC.presence_of_element_located((By.XPATH, lxfw_bonus_path)))
+            
+        
+        """
         self.logger.debug('读取comment分')
         comment_bonus = self.wait.until(EC.presence_of_element_located((By.XPATH, comment_bonus_path)))
-
+        """
+        
         if lxfw_bonus.text == '已领取':
             pass
         else:
             lxfw_bonus.click()
             time.sleep(2)
 
+        """
         self.logger.debug('Scroll into View')
         self.driver.execute_script("arguments[0].scrollIntoView();", comment_bonus)
         time.sleep(2)
@@ -77,6 +97,7 @@ class goCenter(object):
             pass
         else:
             twenty_bonus.click()
+        """
 
         return self.driver
 

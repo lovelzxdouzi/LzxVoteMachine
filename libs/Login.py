@@ -239,6 +239,11 @@ class Login(object):
         print(u'INFO: 登录检查...')
         self.logger.debug('登录检查...')
 
+        # 检查有没有自动跳转，没有的话就重新跳转
+        self.logger.debug('Current url: %s', self.driver.current_url)
+        if self.driver.current_url == 'https://m.weibo.cn':
+            return loginCheck(self)
+
         # 检查是不是完善资料页面
         is_detail_page = True
         try:
@@ -253,7 +258,10 @@ class Login(object):
             self.logger.debug('不是完善资料页面，进行下一步检查')
 
         # 检查登陆
-        gn_position = self.wait.until(EC.presence_of_element_located((By.XPATH, gn_position_path)))
+        try:
+            gn_position = self.wait.until(EC.presence_of_element_located((By.XPATH, gn_position_path)))
+        except TimeoutException as t:
+            return loginCheck(self)
 
         html = gn_position.get_attribute('innerHTML')
 

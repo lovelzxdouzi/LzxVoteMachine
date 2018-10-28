@@ -1,21 +1,32 @@
 from libs.Login import *
 from libs.path_url_lib import *
 
+import logging
 
 class AutoSign(object):
     def __init__(self, driver):
         self.driver = driver
         self.wait = WebDriverWait(self.driver, 30, 0.5)  # 等待时间
         self.driver.set_window_size(1000, 820)
+        """
+        # 读取日志
+        """
+        self.logger = logging.getLogger('test')
 
     def to_page(self, url):
         self.driver.get(url)
 
     def doQuery(self):
+        self.logger.debug('Do Query')
+        self.logger.debug('检查title路径')
         title = self.wait.until(EC.presence_of_element_located((By.XPATH, title_path)))
+        self.logger.debug('检查title路径：成功')
+        self.logger.debug('检查focus button路径')
         focus_btn = self.wait.until(EC.presence_of_element_located((By.XPATH, focus_btn_path)))
+        self.logger.debug('检查focus button路径：成功')
         info = focus_btn.text
-
+        self.logger.debug('focus button info: %s', info)
+        
         time.sleep(5)
         # 如果是已关注，则点击右边的签到按钮:
         if info == 'Y 已关注g':

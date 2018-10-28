@@ -157,8 +157,6 @@ class Login(object):
         :param template: 模板
         :return: True or Flase
         """
-        self.logger.debug('识别相似验证码')
-        
         # 相似度阈值
         threshold = 0.96
         compare_image = CompareImage()
@@ -240,7 +238,23 @@ class Login(object):
 
         print(u'INFO: 登录检查...')
         self.logger.debug('登录检查...')
+
+        # 检查是不是完善资料页面
+        is_detail_page = True
+        try:
+            self.logger.debug('检查是否是完善资料页面')
+            fill_in_details = self.wait.until(EC.presence_of_element_located((By.XPATH, fill_in_details_path)))
+        except TimeoutException as t:
+            is_detail_page = None
+
+        if is_detail_page:
+            self.logger.debug('是完善资料页面，跳过')
+        else:
+            self.logger.debug('不是完善资料页面，进行下一步检查')
+
+        # 检查登陆
         gn_position = self.wait.until(EC.presence_of_element_located((By.XPATH, gn_position_path)))
+
         html = gn_position.get_attribute('innerHTML')
 
         if '注册' in html or '登录' in html:

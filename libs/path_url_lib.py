@@ -8,6 +8,7 @@ xkl_url = 'https://weibo.com/p/1008085db32612886f0e6498427553470911d9/super_inde
 vote_url = 'https://huati.weibo.cn/super/pickoppo?page_id=100808132000b677812b65d29154c4ec164a96'
 
 # 登录检查所需 xpath
+fill_in_details_path = '//*[@id="pl_guide_front_recommend"]/div[1]'
 gn_position_path = '//*[@id="pl_common_top"]/div/div/div[3]'
 title_path = '//*[@id="Pl_Core_StuffHeader__1"]/div/div[2]/div/div[2]/h1'
 move_ret_path = '//*[@id="patternCaptchaHolder"]/div[1]/div[2]'

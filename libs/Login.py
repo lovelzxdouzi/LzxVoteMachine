@@ -15,6 +15,7 @@ from selenium.common.exceptions import *
 
 from libs.Compare import *
 from selenium.webdriver import ActionChains
+from libs.contextLib import *
 from libs.path_url_lib import *
 from io import BytesIO
 import time
@@ -53,11 +54,16 @@ class Login(object):
         
         self.driver.set_window_size(100, 455)
         self.driver.get(self.url)
-        username = self.wait.until(EC.presence_of_element_located((By.ID, "loginName")))
-        password = self.wait.until(
-            EC.presence_of_element_located((By.ID, "loginPassword"))
-        )
-        button = self.wait.until(EC.element_to_be_clickable((By.ID, "loginAction")))
+        try:
+            username = self.wait.until(EC.presence_of_element_located((By.ID, "loginName")))
+            password = self.wait.until(
+                EC.presence_of_element_located((By.ID, "loginPassword"))
+            )
+            button = self.wait.until(EC.element_to_be_clickable((By.ID, "loginAction")))
+        except TimeoutException as e:
+            self.logger.debug('TimeoutException - %s', e)
+            self.logger.debug('网络读取失败，重新读取')
+            self.open()
 
         # 填入账号密码
         self.logger.debug('填入账号密码')
@@ -71,18 +77,43 @@ class Login(object):
         self.logger.debug('等待 验证轨迹图片 的第一次导引动画')
         
         time.sleep(4)
-        self.errCheck()
+        self.logger.debug('现在的网页地址是: %s', self.driver.current_url)
+        #如果页面不是移动微博页面，说明需要验证
+        if self.driver.current_url != 'https://m.weibo.cn/':
+            # 先进行错误自检
+            self.errCheck()
 
     def errCheck(self):
-        errmsg = self.wait.until(EC.element_to_be_clickable((By.ID, "errorMsg"))).text
-        if len(errmsg) > 10:
-            self.logger.debug('出现红字errMsg, 需要刷新, 重新获取轨迹图...')
-            print(u'INFO: 出现红字errMsg, 需要刷新, 重新获取轨迹图...')
-            self.driver.refresh()
-            self.open()
-        else:
-            self.logger.debug('没有出现登录errMsg.')
-            print(u'INFO: 没有出现登录errMsg.')
+        self.logger.debug('正在进行错误自检')
+        # 如果页面是移动微博页面，说明不需要需要验证，那么就不进行错误自检
+        if self.driver.current_url == 'https://m.weibo.cn/':
+            self.logger.debug('移动端微博页面，不需要进行错误自检')
+            return
+
+        try:
+            errmsg = self.wait.until(EC.element_to_be_clickable((By.ID, "errorMsg"))).text
+            if len(errmsg) > 10:
+                self.logger.debug('出现红字errMsg, 需要刷新, 重新获取轨迹图...')
+                print(u'INFO: 出现红字errMsg, 需要刷新, 重新获取轨迹图...')
+                self.driver.refresh()
+                self.open()
+            else:
+                self.logger.debug('没有出现登录errMsg.')
+                print(u'INFO: 没有出现登录errMsg.')
+        except TimeoutException as t:
+            # 自检出现超时
+            self.logger.debug('自检超时: %s', t)
+            # 重新进行自检
+            self.errCheck()
+
+    def doAuthenticate(self):
+        # loop = True
+        # 预防 拖动轨迹 失败
+        # while loop:
+        image = self.get_image()
+        numbers = self.detect_image(image)
+        loop = self.move(numbers)
+        time.sleep(1)
 
     def get_position(self):
         """
@@ -228,52 +259,111 @@ class Login(object):
         time.sleep(4)
         c_url = self.driver.current_url
 
+        """
         if 'passport' in c_url:
             return True
         else:
             return False
+        """
+        return True
+
+    def completeDetails(self):
+        # 完善资料页面，随机一个昵称
+        # 先随机一个前缀
+        prefix = name_prefix_context[random.randint(0, len(name_prefix_context)-1)]
+
+        # 再随机三个小写英文字母，和一个数字
+        base = 97
+        c1 = chr(base + random.randint(0, 25))
+        c2 = chr(base + random.randint(0, 25))
+        c3 = chr(base + random.randint(0, 25))
+        num = str(random.randint(0,99))
+
+        # 把所有元素加到以起，组成昵称
+        self_name = prefix + c1 + c2 + c3 + num
+
+        self.logger.debug('昵称是：%s', self_name)
+        print('昵称是：%s' %(self_name))
+
+        # 尝试读取所有完善资料所需的xpath
+        
+        # 填写昵称
+        name_p = self.driver.find_element_by_xpath(name_path)
+        name_p.click()
+        name_p.clear()
+        name_p.send_keys(self_name)
+
+        # 选择年份
+        year = str(random.randint(1985, 2009))
+        y_path = year_path + '/option[text()=\'' + year + '\']'
+        year_p = self.driver.find_element_by_xpath(y_path)
+        year_p.click()
+
+        # 选择月份
+        month = str(random.randint(1, 12))
+        m_path = month_path + '/option[text()=\'' + month + '\']'
+        month_p = self.driver.find_element_by_xpath(m_path)
+        month_p.click()
+
+        # 选择日期
+        day = str(random.randint(1, 28))
+        d_path = day_path + '/option[text()=\'' + day + '\']'
+        day_p = self.driver.find_element_by_xpath(d_path)
+        day_p.click()
+
+        # 选择性别(女)
+        sex_p = self.driver.find_element_by_xpath(sex_path)
+        sex_p.click()
+
+        # 填写完资料，提交页面
+        complete_button = self.wait.until(EC.presence_of_element_located((By.XPATH, complete_btn_path)))
+        complete_button.click()
+        time.sleep(2)
+        
+        # 兴趣页面，直接提交
+        interest_button = self.wait.until(EC.presence_of_element_located((By.XPATH, interest_btn_path)))
+        interest_button.click()
+        time.sleep(2)
+        
+        self.logger.debug('自动完善资料成功')
 
     def loginCheck(self):
         # 登录检查，是否真的登录了账号:
         self.driver.set_window_size(900, 455)
+        # 进行页面跳转
         self.to_page(mainst_url)
 
         print(u'INFO: 登录检查...')
         self.logger.debug('登录检查...')
 
         # 检查有没有自动跳转，没有的话就重新跳转
-        self.logger.debug('Current url: %s', self.driver.current_url)
-        if self.driver.current_url == 'https://m.weibo.cn':
+        self.logger.debug('现在的网页地址是: %s', self.driver.current_url)
+        # 如果还是移动微博页面，说明页面跳转没有成功，重新进行页面跳转
+        if self.driver.current_url == 'https://m.weibo.cn/':
             return loginCheck(self)
 
-        # 检查是不是完善资料页面
-        is_detail_page = True
-        try:
-            self.logger.debug('检查是否是完善资料页面')
-            fill_in_details = self.wait.until(EC.presence_of_element_located((By.XPATH, fill_in_details_path)))
-        except TimeoutException as t:
-            is_detail_page = None
-
-        if is_detail_page:
-            self.logger.debug('是完善资料页面，跳过')
+        # 检查是不是完善资料页面，如果是完善资料页面，自动完善资料
+        if self.driver.current_url == 'https://www.weibo.com/nguide/recommend':
+            self.logger.debug('是完善资料页面, 自动完善资料')
+            try:
+                self.completeDetails()
+            except Exception as e:
+                self.logger.debug('完善资料出错：', e)
+                self.logger.debug('username: %s - 有可能是死号', self.username)
         else:
-            self.logger.debug('不是完善资料页面，进行下一步检查')
-
-        # 检查登陆
-        try:
-            gn_position = self.wait.until(EC.presence_of_element_located((By.XPATH, gn_position_path)))
-        except TimeoutException as t:
-            return loginCheck(self)
-
-        html = gn_position.get_attribute('innerHTML')
-
-        if '注册' in html or '登录' in html:
-            self.logger.debug('登录异常，重新登录中...')
-            print(u'INFO: 登录异常，重新登录中...')
-            self.run()
-        else:
-            self.logger.debug('登录检查通过...')
-            print(u'INFO: 登录检查通过...')
+            # 检查登陆
+            try:
+                gn_position = self.wait.until(EC.presence_of_element_located((By.XPATH, gn_position_path)))
+                html = gn_position.get_attribute('innerHTML')
+                if '注册' in html or '登录' in html:
+                    self.logger.debug('登录异常，重新登录中...')
+                    print(u'INFO: 登录异常，重新登录中...')
+                    self.run()
+                else:
+                    self.logger.debug('登录检查通过...')
+                    print(u'INFO: 登录检查通过...')
+            except TimeoutException as t:
+                return self.loginCheck()
 
     def run(self):
         """
@@ -281,13 +371,12 @@ class Login(object):
         :return: driver 返回浏览器driver 以备之后使用
         """
         self.open()
-        loop = True
-        # 预防 拖动轨迹 失败
-        while loop:
-            image = self.get_image()
-            numbers = self.detect_image(image)
-            loop = self.move(numbers)
-            time.sleep(1)
+        #如果页面不是移动微博页面，说明需要验证
+        if self.driver.current_url != 'https://m.weibo.cn/':
+            #再进行手势验证
+            self.doAuthenticate()
+
+        #最后，检查是否真的登陆成功
         self.loginCheck()
 
         return self.driver

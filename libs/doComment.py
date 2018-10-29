@@ -1,7 +1,4 @@
 from libs.Login import *
-from libs.contextLib import *
-from libs.path_url_lib import *
-
 
 class doComments(object):
     def __init__(self, driver):

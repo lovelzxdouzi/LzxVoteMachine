@@ -1,7 +1,4 @@
 from libs.Login import *
-from libs.path_url_lib import *
-
-import logging
 
 class AutoSign(object):
     def __init__(self, driver):
@@ -77,8 +74,8 @@ class AutoSign(object):
             # 在这里except WebDriverWait会出现问题，所以暂时先注释
             # except WebDriverWait as w:
             except Exception as w:
-                logger.debug('WebDriverWait - 出现问题')
-                logger.debug('WebDriverWait - %s', w)
+                self.logger.debug('WebDriverWait - 出现问题')
+                self.logger.debug('WebDriverWait - %s', w)
                 print(w)
                 continue
 

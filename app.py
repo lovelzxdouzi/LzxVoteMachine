@@ -51,13 +51,16 @@ if __name__ == '__main__':
         logger.debug('Exception - %s', e)
         sys.exit()
 
-    logger.debug('账号读取完毕')
+    index = 0
+    total = len(accounts)
+    logger.debug('账号读取完毕， 一共%d个账号', total)
 
     for name, pswd in accounts.items():
+        index += 1
         driver = webdriver.Chrome(driver_path)
         try:
-            logger.debug('账号：%s 正在打榜!', name)
-            print('-----账号：{} 正在打榜：-----'.format(name))
+            logger.debug('-----账号(%d/%d)：%s 正在打榜:-----', index, total, name)
+            print('-----账号(%d/%d)：%s 正在打榜:-----' %(index,total,name))
             # TODO: 设置进度记录仪
             driver = Login(driver, name, pswd).run()
             logger.debug('操作进度：登录完成')
@@ -81,18 +84,19 @@ if __name__ == '__main__':
             except AttributeError as a:
                 logger.debug('AttributeError - %s', a)
                 continue
+            
         except TimeoutException as t:
             logger.debug('TimeoutException - 出现超时现象。挖土豆机已经终止')
             logger.debug('TimeoutException - %s', t)
             print(u'出现超时现象。挖土豆机已经终止')
-            driver.quit()
+            #driver.quit()
             pass
         except WebDriverException as e:
             logger.debug('WebDriverException - 挖土豆机浏览器引擎出现问题，当前账号打榜已终止。')
             logger.debug('WebDriverException - %s', e)
             print(e)
             print(u'挖土豆机浏览器引擎出现问题，当前账号打榜已终止。')
-            driver.quit()
+            #driver.quit()
 
 # TODO:
 """ 

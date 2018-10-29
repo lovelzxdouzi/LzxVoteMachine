@@ -7,6 +7,15 @@ xkl_url = 'https://weibo.com/p/1008085db32612886f0e6498427553470911d9/super_inde
 
 vote_url = 'https://huati.weibo.cn/super/pickoppo?page_id=100808132000b677812b65d29154c4ec164a96'
 
+# 完善资料所需 xpath
+name_path = '//*[@id="pl_guide_front_recommend"]/div[2]/div[1]/div[3]/input'
+year_path = '//*[@id="pl_guide_front_recommend"]/div[2]/div[2]/div[3]/select[1]'
+month_path = '//*[@id="pl_guide_front_recommend"]/div[2]/div[2]/div[3]/select[2]'
+day_path = '//*[@id="pl_guide_front_recommend"]/div[2]/div[2]/div[3]/select[3]'
+sex_path = '//*[@id="pl_guide_front_recommend"]/div[2]/div[3]/div[3]/label[2]/input'
+complete_btn_path = '//*[@id="pl_guide_front_recommend"]/div[2]/div[5]/div/a'
+interest_btn_path = '//*[@id="pl_guide_front_interestTag"]/div/div[3]/a'
+
 # 登录检查所需 xpath
 fill_in_details_path = '//*[@id="pl_guide_front_recommend"]/div[1]'
 gn_position_path = '//*[@id="pl_common_top"]/div/div/div[3]'

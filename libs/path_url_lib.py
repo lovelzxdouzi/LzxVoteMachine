@@ -8,6 +8,7 @@ xkl_url = 'https://weibo.com/p/1008085db32612886f0e6498427553470911d9/super_inde
 vote_url = 'https://huati.weibo.cn/super/pickoppo?page_id=100808132000b677812b65d29154c4ec164a96'
 
 # 登录检查所需 xpath
+fill_in_details_path = '//*[@id="pl_guide_front_recommend"]/div[1]'
 gn_position_path = '//*[@id="pl_common_top"]/div/div/div[3]'
 title_path = '//*[@id="Pl_Core_StuffHeader__1"]/div/div[2]/div/div[2]/h1'
 move_ret_path = '//*[@id="patternCaptchaHolder"]/div[1]/div[2]'
@@ -34,8 +35,17 @@ first_title_path = '//*[@id="app"]/div/section/dl[1]/dt'
 
 # 任务中心 领取分数 xpath
 new_user_bonus_path = '//*[@id="app"]/div/section/dl[1]/dd[1]/a[1]'
-lxfw_bonus_path = '//*[@id="app"]/div/section/dl[{}]/dd[1]/a'
-comment_bonus_path = '//*[@id="app"]/div/section/dl[{}]/dd[4]/a[2]'
+
+
+lxfw_bonus_path = '//*[@id="app"]/div/section/dl[2]/dd[1]/a'
+# 二手号的xpath
+old_lxfw_bonus_path = '//*[@id="app"]/div/section/dl[1]/dd[1]/a'
+comment_bonus_path = '//*[@id="app"]/div/section/dl[2]/dd[4]/a[2]'
+
+# lxfw_bonus_path = '//*[@id="app"]/div/section/dl[{}]/dd[1]/a'
+# comment_bonus_path = '//*[@id="app"]/div/section/dl[{}]/dd[4]/a[2]'
+
+
 twenty_bonus_path = '//*[@id="app"]/div/section/dl[3]/dd/a[1]'
 saved_twenty_bonus_path = '//*[@id="app"]/div/section/dl[3]/dd/a[2]'
 

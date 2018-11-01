@@ -1,11 +1,17 @@
 from libs.path_url_lib import *
 from libs.Login import *
 
+import logging
 
 class goCenter(object):
     def __init__(self, driver):
         self.driver = driver
         self.wait = WebDriverWait(self.driver, 10, 0.5)
+        self.driver.set_window_size(500, 980)
+        """
+        # 读取日志
+        """
+        self.logger = logging.getLogger('test')
 
     def to_page(self, url):
         self.driver.get(url)
@@ -13,6 +19,8 @@ class goCenter(object):
 
     def run(self):
         # 1. 进任务中心领分
+        self.logger.debug('进任务中心领分')
+
         global module
         self.driver.set_window_size(300, 980)
         # 先进送分页面，如果没分，送分按钮就是去任务中心的按钮
@@ -20,11 +28,13 @@ class goCenter(object):
         try:
             center = self.wait.until(EC.presence_of_element_located((By.XPATH, center_path)))
         except TimeoutException:
+            self.logger.debug('现在已经没积分啦!准备进入任务中心领分...')
             print(u'现在已经没积分啦!准备进入任务中心领分...')
             center = self.driver.find_element_by_xpath(vote_btn_path)
         center.click()
         time.sleep(5)
 
+        self.logger.debug('判断老号还是新号')
         # 判断老号还是新号，看 任务中心的 dl 是 2个还是 3个
         first_title = self.wait.until(EC.presence_of_element_located((By.XPATH, first_title_path))).text
         moudle = 2
@@ -50,11 +60,53 @@ class goCenter(object):
 
         lxfw_bonus = self.wait.until(EC.presence_of_element_located((By.XPATH, lxfw_bonus_path.format(moudle))))
 
+        """
+        self.logger.debug('读取lxfw分: %s', first_title)
+        if first_title == '每日任务':
+            # 是二手号
+            self.logger.debug('二手号')
+            try:
+                lxfw_bonus = self.driver.find_element_by_xpath(old_lxfw_bonus_path)
+            except WebDriverException as e:
+                self.driver.refresh()
+                lxfw_bonus = self.driver.find_element_by_xpath(old_lxfw_bonus_path)
+        else:
+            self.logger.debug('其他号')
+            try:
+                lxfw_bonus = self.wait.until(EC.presence_of_element_located((By.XPATH, lxfw_bonus_path)))
+            except WebDriverException as e:
+                self.driver.refresh()
+                lxfw_bonus = self.wait.until(EC.presence_of_element_located((By.XPATH, lxfw_bonus_path)))
+        """
+            
+
+        #不用在任务中心点击评论按钮
+        """
+        self.logger.debug('读取comment分')
+        comment_bonus = self.wait.until(EC.presence_of_element_located((By.XPATH, comment_bonus_path)))
+        """
+        
         if lxfw_bonus.text == '已领取':
             pass
         else:
             lxfw_bonus.click()
             time.sleep(2)
+
+        # 不用在任务中心点击20条被评论按钮
+        """
+        self.logger.debug('Scroll into View')
+        self.driver.execute_script("arguments[0].scrollIntoView();", comment_bonus)
+        time.sleep(2)
+
+        self.logger.debug('读取20评论分')
+        twenty_bonus = self.wait.until(EC.presence_of_element_located((By.XPATH, twenty_bonus_path)))
+        if twenty_bonus.text == '':
+            twenty_bonus = self.wait.until(EC.presence_of_element_located((By.XPATH, saved_twenty_bonus_path)))
+        if twenty_bonus.text == '去完成' or twenty_bonus.text == '已完成':
+            pass
+        else:
+            twenty_bonus.click()
+        """
 
         return self.driver
 

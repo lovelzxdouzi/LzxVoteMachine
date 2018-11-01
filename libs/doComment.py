@@ -8,11 +8,17 @@ class doComments(object):
         self.driver = driver
         self.wait = WebDriverWait(self.driver, 30, 0.5)
         self.driver.set_window_size(640, 950)
+        """
+        # 读取日志
+        """
+        self.logger = logging.getLogger('test')
 
     def to_page(self):
         self.driver.get(wtd_url)
 
     def run(self):
+        self.logger.debug('开始挖土豆')
+        
         # 循环 8 次评论过程
         self.to_page()
         self.driver.refresh()
@@ -44,6 +50,7 @@ class doComments(object):
 
             # 检查 wrapper 的评论数量，小于等于19 则 给评论
 
+            self.logger.debug('当前帖子评论数:%d', count)
             print('INFO: 当前帖子评论数: ', count)
             # 点击评论按钮
             comment_btn = self.wait.until(EC.presence_of_element_located((By.XPATH, comment_btn_path.format(cursor))))
@@ -64,14 +71,15 @@ class doComments(object):
             textarea.clear()
 
             # 随机生成评论字符串
-            text = context[random.randint(0, 36)]
-            textarea.send_keys('v'+text)
+            text = context[random.randint(0, 15)]
+            textarea.send_keys(text)
 
             # 发送评论
             send_btn = self.wait.until(EC.element_to_be_clickable((By.XPATH, send_btn_path.format(cursor))))
             send_btn.click()
 
             # 等待 '发送完成' 提示消失
+            self.logger.debug('第%d次评论完成 ...', count)
             print('第{}次评论完成 ...'.format(rec))
             rec += 1
             time.sleep(2)

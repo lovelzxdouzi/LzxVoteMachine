@@ -17,6 +17,7 @@ from libs.Compare import *
 from selenium.webdriver import ActionChains
 from libs.contextLib import *
 from libs.path_url_lib import *
+from libs.Configuration import *
 from io import BytesIO
 import time
 import re
@@ -103,8 +104,8 @@ class Login(object):
         except TimeoutException as t:
             # 自检出现超时
             self.logger.debug('自检超时: %s', t)
-            # 重新进行自检
-            self.errCheck()
+            # 重新进行登陆
+            self.open()
 
     def doAuthenticate(self):
         # loop = True
@@ -330,27 +331,28 @@ class Login(object):
     def loginCheck(self):
         # 登录检查，是否真的登录了账号:
         self.driver.set_window_size(900, 455)
-        # 进行页面跳转
+
+        # 进行页面跳转去主超话
+        self.logger.debug('跳转去主超话...')
         self.to_page(mainst_url)
+        self.driver.implicitly_wait(0.1)
+
+        # 检查有没有自动跳转成功，没有的话就重新跳转
+        cur_url = self.driver.current_url
+        self.logger.debug('现在的网页地址是: %s', cur_url)
 
         print(u'INFO: 登录检查...')
         self.logger.debug('登录检查...')
 
-        # 检查有没有自动跳转，没有的话就重新跳转
-        self.logger.debug('现在的网页地址是: %s', self.driver.current_url)
-        # 如果还是移动微博页面，说明页面跳转没有成功，重新进行页面跳转
-        if self.driver.current_url == 'https://m.weibo.cn/':
-            return loginCheck(self)
-
         # 检查是不是完善资料页面，如果是完善资料页面，自动完善资料
-        if self.driver.current_url == 'https://www.weibo.com/nguide/recommend':
+        if cur_url == 'https://www.weibo.com/nguide/recommend' or cur_url == 'https://weibo.com/nguide/recommend':
             self.logger.debug('是完善资料页面, 自动完善资料')
             try:
                 self.completeDetails()
             except Exception as e:
                 self.logger.debug('完善资料出错：', e)
-                self.logger.debug('username: %s - 有可能是死号', self.username)
-        else:
+                self.logger.debug('username: %s - 有可能是死号', self.username)     
+        elif cur_url == mainst_url:
             # 检查登陆
             try:
                 gn_position = self.wait.until(EC.presence_of_element_located((By.XPATH, gn_position_path)))
@@ -364,7 +366,25 @@ class Login(object):
                     print(u'INFO: 登录检查通过...')
             except TimeoutException as t:
                 return self.loginCheck()
-
+        else:
+            # 检查是不是'ERR_TOO_MANY_REDIRECTS'
+            try:
+                err_msg = self.wait.until(EC.presence_of_element_located((By.XPATH, err_too_many_redirects_path)))
+                self.driver.implicitly_wait(0.1)
+                err_txt = err_msg.text
+                # 如果有这个error message, 而且是'ERR_TOO_MANY_REDIRECTS'
+                # 说明这个账号是死号，汇报死号，并切号
+                if err_txt == 'ERR_TOO_MANY_REDIRECTS':
+                    print('%s应该是死号，切号' %(self.username))
+                    self.logger.debug('%s应该是死号，切号', self.username)
+                else:
+                    # 其他情况
+                    self.logger.debug('错误信息是%s', err_txt)
+                config.setNextAccount(True)
+            except TimeoutException as t:
+                # 没有错误信息，重新检查登陆
+                return self.loginCheck()
+            
     def run(self):
         """
         主函数

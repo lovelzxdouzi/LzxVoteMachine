@@ -1,11 +1,16 @@
 # 这里都是需要用到的 url
-mainst_url = 'https://weibo.com/p/100808132000b677812b65d29154c4ec164a96/super_index'
+mainst_url = 'https://www.weibo.com/p/100808132000b677812b65d29154c4ec164a96/super_index'
 wtd_url = 'https://weibo.com/p/1008081b39f9799c74646813336ad8fa236872/super_index'
 zdz_url = 'https://weibo.com/p/100808dabb2c01ce6873ff318f9e6e43211173/super_index'
 cdb_url = 'https://weibo.com/p/1008082ba4d2bd5eba02778d7eb105551e72b9/super_index'
 xkl_url = 'https://weibo.com/p/1008085db32612886f0e6498427553470911d9/super_index'
 
 vote_url = 'https://huati.weibo.cn/super/pickoppo?page_id=100808132000b677812b65d29154c4ec164a96'
+security_url = 'https://security.weibo.com/account/security'
+
+# 检查死号所需要的 xpath
+err_too_many_redirects_path = '//*[@id="error-information-popup-content"]/div[2]'
+account_strange_message_path = '//*[@id="message-p"]'
 
 # 完善资料所需 xpath
 name_path = '//*[@id="pl_guide_front_recommend"]/div[2]/div[1]/div[3]/input'
@@ -46,12 +51,12 @@ first_title_path = '//*[@id="app"]/div/section/dl[1]/dt'
 new_user_bonus_path = '//*[@id="app"]/div/section/dl[1]/dd[1]/a[1]'
 
 
-lxfw_bonus_path = '//*[@id="app"]/div/section/dl[2]/dd[1]/a'
+# lxfw_bonus_path = '//*[@id="app"]/div/section/dl[2]/dd[1]/a'
 # 二手号的xpath
-old_lxfw_bonus_path = '//*[@id="app"]/div/section/dl[1]/dd[1]/a'
+# old_lxfw_bonus_path = '//*[@id="app"]/div/section/dl[1]/dd[1]/a'
 comment_bonus_path = '//*[@id="app"]/div/section/dl[2]/dd[4]/a[2]'
 
-# lxfw_bonus_path = '//*[@id="app"]/div/section/dl[{}]/dd[1]/a'
+lxfw_bonus_path = '//*[@id="app"]/div/section/dl[{}]/dd[1]/a'
 # comment_bonus_path = '//*[@id="app"]/div/section/dl[{}]/dd[4]/a[2]'
 
 

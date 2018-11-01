@@ -34,9 +34,16 @@ class goCenter(object):
         center.click()
         time.sleep(5)
 
-        self.logger.debug('判断老号还是新号')
+        self.logger.debug('任务中心：判断老号还是新号')
         # 判断老号还是新号，看 任务中心的 dl 是 2个还是 3个
-        first_title = self.wait.until(EC.presence_of_element_located((By.XPATH, first_title_path))).text
+        try:
+            first_title = self.wait.until(EC.presence_of_element_located((By.XPATH, first_title_path))).text
+        except WebDriverException as e:
+            self.logger.debug('没有找到任务中心的第一个标题，可能不是任务中心，重新进入任务中心。')
+            return self.run()
+
+        self.logger.debug('第一个标题是：%s', first_title)
+        
         moudle = 2
         if first_title == '新手任务':
             # 是新号：
@@ -57,8 +64,7 @@ class goCenter(object):
         elif first_title == '每日任务':
             # 相对而言是老号：
             moudle = 1
-
-        lxfw_bonus = self.wait.until(EC.presence_of_element_located((By.XPATH, lxfw_bonus_path.format(moudle))))
+        
 
         """
         self.logger.debug('读取lxfw分: %s', first_title)
@@ -85,12 +91,19 @@ class goCenter(object):
         self.logger.debug('读取comment分')
         comment_bonus = self.wait.until(EC.presence_of_element_located((By.XPATH, comment_bonus_path)))
         """
-        
-        if lxfw_bonus.text == '已领取':
-            pass
-        else:
-            lxfw_bonus.click()
-            time.sleep(2)
+
+        # 获取连续访问按键，如果有分就领取
+        self.logger.debug('任务中心：获取连续访问按键')
+        try:
+            lxfw_bonus = self.wait.until(EC.presence_of_element_located((By.XPATH, lxfw_bonus_path.format(moudle))))
+            if lxfw_bonus.text == '已领取':
+                pass
+            else:
+                lxfw_bonus.click()
+                time.sleep(2)
+        except WebDriverException as e:
+            self.logger.debug('WebDriverException - 获取连续访问案件出错，跳过')
+            self.logger.debug('WebDriverException - %s', e)
 
         # 不用在任务中心点击20条被评论按钮
         """
@@ -113,24 +126,40 @@ class goCenter(object):
     def sendScore(self):
         # 2. 送分
         self.to_page(vote_url)
-        score_info = self.wait.until(EC.presence_of_element_located((By.XPATH, score_info_path)))
+        self.driver.implicitly_wait(0.1)
 
-        if eval(re.sub('\D', '', score_info.text)) == 0:
-            return print('现在已经没有积分啦！')
-        else:
-            print(score_info.text)
+        try:
+            score_info = self.wait.until(EC.presence_of_element_located((By.XPATH, score_info_path)))
+            self.driver.implicitly_wait(0.1)
 
-        select_all_btn = self.wait.until(EC.presence_of_element_located((By.XPATH, select_all_btn_path)))
-        select_all_btn.click()
-        time.sleep(2)
+            points = 0
+            if eval(re.sub('\D', '', score_info.text)) == 0:
+                return print('现在已经没有积分啦！')
+            else:
+                print(score_info.text)
+                points += eval(re.sub('\D', '', score_info.text))
 
-        vote_btn = self.wait.until(EC.presence_of_element_located((By.XPATH, vote_btn_path)))
-        vote_btn.click()
-        print('送分成功！')
-        time.sleep(3)
+            select_all_btn = self.wait.until(EC.presence_of_element_located((By.XPATH, select_all_btn_path)))
+            self.driver.implicitly_wait(0.1)
+            select_all_btn.click()
+            self.driver.implicitly_wait(0.1)
+            time.sleep(2)
 
-        rank_info = self.wait.until(EC.presence_of_element_located((By.XPATH, rank_info_path)))
-        desc_info = self.wait.until(EC.presence_of_element_located((By.XPATH, desc_info_path)))
-        print(rank_info.text, ',', desc_info.text)
+            vote_btn = self.wait.until(EC.presence_of_element_located((By.XPATH, vote_btn_path)))
+            self.driver.implicitly_wait(0.1)
+            vote_btn.click()
+            self.driver.implicitly_wait(0.1)
+            print('送分成功！')
+            config.addScore(points)
+            time.sleep(3)
+
+            rank_info = self.wait.until(EC.presence_of_element_located((By.XPATH, rank_info_path)))
+            self.driver.implicitly_wait(0.1)
+            desc_info = self.wait.until(EC.presence_of_element_located((By.XPATH, desc_info_path)))
+            self.driver.implicitly_wait(0.1)
+            print(rank_info.text, ',', desc_info.text)
+        except TimeoutException as t:
+            self.logger.debug('出现超时现象 - %s', t)
+            return self.sendScore()
 
         return self.driver
